@@ -1,0 +1,82 @@
+format: arena-scenario/2
+robots:
+- start:
+  - 10.0
+  - 2.0
+  - 1.5708
+  phases:
+  - goto:
+    - 10.0
+    - 32.0
+    - 1.5708
+humans:
+- name: walk_leader
+  model: Common/Human/arenian
+  pose:
+  - 9.6
+  - 8.0
+  - 1.5708
+  agent:
+    agent_type: ./leader.yaml
+- name: walk_follower_0
+  model: Common/Human/casual_female_african_young
+  pose:
+  - 8.8
+  - 7.2
+  - 1.5708
+  agent:
+    agent_type: ./follower.yaml
+- name: walk_follower_1
+  model: Common/Human/worker_male_asian_middleage
+  pose:
+  - 10.4
+  - 7.2
+  - 1.5708
+  agent:
+    agent_type: ./follower.yaml
+- name: chat_talker_0
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose:
+  - 10.9
+  - 20.7
+  - 4.7124
+  agent:
+    agent_type: ./talker.yaml
+- name: chat_talker_1
+  model: Common/Human/arenian
+  pose:
+  - 10.9
+  - 19.3
+  - 7.854
+  agent:
+    agent_type: ./talker.yaml
+- name: hall_single_0
+  model: Common/Human/casual_female_african_young
+  pose: central_hallway
+  agent:
+    agent_type: adult
+  waypoint_mode: random
+  waypoints:
+  - central_hallway
+  - central_hallway
+  - central_hallway
+- name: hall_single_1
+  model: Common/Human/worker_male_asian_middleage
+  pose: central_hallway
+  agent:
+    agent_type: adult
+  waypoint_mode: random
+  waypoints:
+  - central_hallway
+  - central_hallway
+  - central_hallway
+- name: hall_single_2
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose: central_hallway
+  agent:
+    agent_type: adult
+  waypoint_mode: random
+  waypoints:
+  - central_hallway
+  - central_hallway
+  - central_hallway

@@ -1,0 +1,12 @@
+name: follower
+mode: behavior_tree
+extends: adult
+initial_sequence: follow
+sequences:
+  follow:
+    steps:
+      settle:
+        duration: 2.0
+      join:
+        interaction: GROUP_WALK
+        duration: 10000.0

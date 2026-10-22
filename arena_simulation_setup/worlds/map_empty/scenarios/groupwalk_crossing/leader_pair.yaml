@@ -1,0 +1,57 @@
+name: leader_pair
+mode: behavior_tree
+extends: adult
+initial_sequence: lead
+sequences:
+  lead:
+    steps:
+      form:
+        interaction: GROUP_WALK
+      leg_1:
+        kind: go_to
+        target_pose:
+          x: 24.0
+          y: 19.0
+          theta: 0.6947
+      leg_2:
+        kind: go_to
+        target_pose:
+          x: 6.0
+          y: 4.0
+          theta: -2.4469
+      leg_3:
+        kind: go_to
+        target_pose:
+          x: 24.0
+          y: 19.0
+          theta: 0.6947
+      leg_4:
+        kind: go_to
+        target_pose:
+          x: 6.0
+          y: 4.0
+          theta: -2.4469
+      leg_5:
+        kind: go_to
+        target_pose:
+          x: 24.0
+          y: 19.0
+          theta: 0.6947
+      leg_6:
+        kind: go_to
+        target_pose:
+          x: 6.0
+          y: 4.0
+          theta: -2.4469
+      leg_7:
+        kind: go_to
+        target_pose:
+          x: 24.0
+          y: 19.0
+          theta: 0.6947
+      leg_8:
+        kind: go_to
+        target_pose:
+          x: 6.0
+          y: 4.0
+          theta: -2.4469

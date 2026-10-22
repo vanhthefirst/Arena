@@ -1,0 +1,14 @@
+name: talker
+mode: behavior_tree
+extends: adult
+initial_sequence: talk
+sequences:
+  talk:
+    steps:
+      settle:
+        duration: 2.0
+      talk:
+        interaction: GROUP_CONVERSATION
+        attention:
+          gaze: partner
+        duration: 10000.0
