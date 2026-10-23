@@ -32,6 +32,7 @@ def _adapter(prev: AgentFrame | None = None, curr: AgentFrame | None = None, ori
     adapter._curr_agent_states = curr
     adapter._engine_stamp_ns = engine_stamp_ns
     adapter._agent_gestures = {}
+    adapter._group_ids = {}
     adapter._agent_names = {}
     adapter._agent_types = {}
     adapter._agent_type_paths = {}
