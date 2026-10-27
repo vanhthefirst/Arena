@@ -17,7 +17,7 @@
 	update = checkout
 [submodule "arena_training"]
 	path = arena_training
-	url = https://github.com/Arena-Rosnav/Arena-Training.git
+	url = https://github.com/vanhthefirst/Arena-Training.git
 	branch = jazzy
 	update = checkout
 [submodule "arena_planners"]

@@ -1,0 +1,82 @@
+format: arena-scenario/2
+robots:
+- start:
+  - 3.0
+  - 11.5
+  - 0.0
+  phases:
+  - goto:
+    - 27.0
+    - 11.5
+    - 0.0
+humans:
+- name: walk_leader
+  model: Common/Human/arenian
+  pose:
+  - 15.0
+  - 3.0
+  - 1.5708
+  agent:
+    agent_type: ./leader.yaml
+- name: walk_follower_0
+  model: Common/Human/casual_female_african_young
+  pose:
+  - 14.2
+  - 2.2
+  - 1.5708
+  agent:
+    agent_type: ./follower.yaml
+- name: walk_follower_1
+  model: Common/Human/worker_male_asian_middleage
+  pose:
+  - 15.8
+  - 2.2
+  - 1.5708
+  agent:
+    agent_type: ./follower.yaml
+- name: pair_leader
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose:
+  - 6.0
+  - 4.0
+  - 0.695
+  agent:
+    agent_type: ./leader_pair.yaml
+- name: pair_follower_0
+  model: Common/Human/arenian
+  pose:
+  - 4.87
+  - 4.1
+  - 0.695
+  agent:
+    agent_type: ./follower.yaml
+- name: open_single_0
+  model: Common/Human/casual_female_african_young
+  pose: empty_zone
+  agent:
+    agent_type: adult
+  waypoint_mode: random
+  waypoints:
+  - empty_zone
+  - empty_zone
+  - empty_zone
+- name: open_single_1
+  model: Common/Human/worker_male_asian_middleage
+  pose: empty_zone
+  agent:
+    agent_type: adult
+  waypoint_mode: random
+  waypoints:
+  - empty_zone
+  - empty_zone
+  - empty_zone
+- name: open_single_2
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose: empty_zone
+  agent:
+    agent_type: adult
+  waypoint_mode: random
+  waypoints:
+  - empty_zone
+  - empty_zone
+  - empty_zone

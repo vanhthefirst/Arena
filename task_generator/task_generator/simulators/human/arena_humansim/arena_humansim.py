@@ -9,6 +9,8 @@ from collections.abc import Mapping, Sequence
 
 import numpy as np
 import yaml
+from arena_humansim.core.interaction_kinds import InteractionType, MembershipRole
+from arena_humansim.utils.types import InteractionOutcome
 from arena_humansim_msgs.msg import (
     AgentFrame as AgentFrameMsg,
 )
@@ -29,6 +31,9 @@ from arena_humansim_msgs.msg import (
 )
 from arena_humansim_msgs.msg import (
     Gesture as EngineGestureMsg,
+)
+from arena_humansim_msgs.msg import (
+    InteractionFrame as InteractionFrameMsg,
 )
 from arena_humansim_msgs.msg import (
     ObstacleConfig as ObstacleConfigMsg,
@@ -116,6 +121,21 @@ from task_generator.shared import Door, DynamicObstacle, Elevator, Obstacle, Ori
 from task_generator.simulators.human import PED_RADIUS, BaseHumanSimulator, HumanSimulatorOptions
 
 from .agent import ArenaHumanDynamicObstacle, agent_type_def, agent_type_stimuli, flow_agent_template, path_agent_type_name
+
+GROUP_INTERACTIONS = frozenset({InteractionType.GROUP_WALK, InteractionType.GROUP_CONVERSATION, InteractionType.TALK_TO})
+
+
+def group_ids(frame: InteractionFrameMsg) -> dict[int, int]:
+    """Engine agent id to the lowest id of the active group interactions it takes part in."""
+    groups: dict[int, int] = {}
+    for k, interaction_id in enumerate(frame.interaction_id):
+        if frame.interaction_type[k] not in GROUP_INTERACTIONS or frame.outcome[k] != InteractionOutcome.ACTIVE:
+            continue
+        lo, hi = frame.member_offset[k], frame.member_offset[k + 1]
+        for member, role in zip(frame.member_id[lo:hi], frame.member_role[lo:hi], strict=True):
+            if role == MembershipRole.PARTICIPANT:
+                groups[member] = min(groups.get(member, interaction_id), interaction_id)
+    return groups
 
 
 class ArenaHumanSimulator(BaseHumanSimulator):
@@ -268,6 +288,7 @@ class ArenaHumanSimulator(BaseHumanSimulator):
         self._curr_agent_states: AgentFrameMsg | None = None
         self._engine_stamp_ns: int | None = None
         self._agent_gestures: dict[int, list[EngineGestureMsg]] = {}
+        self._group_ids: dict[int, int] = {}
         self._agent_types: dict[int, str] = {}
         self._agent_type_paths: dict[str, str] = {}
         self._arena_pedestrians: Pedestrians = Pedestrians()
@@ -357,6 +378,12 @@ class ArenaHumanSimulator(BaseHumanSimulator):
             self._agent_meta_callback,
             static_qos,
         )
+        self.node.create_subscription(
+            InteractionFrameMsg,
+            self.node.service_namespace("interactions"),
+            self._interactions_callback,
+            static_qos,
+        )
 
     def _forward_debug_markers(self, msg: MarkerArray):
         self._marker_publisher.publish(lambda: self._markers_from_engine(msg))
@@ -388,6 +415,10 @@ class ArenaHumanSimulator(BaseHumanSimulator):
         for agent_id, gesture in zip(msg.agent_id, msg.gestures, strict=True):
             grouped.setdefault(agent_id, []).append(gesture)
         self._agent_gestures = grouped
+
+    def _interactions_callback(self, msg: InteractionFrameMsg):
+        """Latest group id per engine agent."""
+        self._group_ids = group_ids(msg)
 
     def _agent_meta_callback(self, msg: AgentMetaMsg):
         """Latest agent type per engine agent."""
@@ -859,6 +890,7 @@ class ArenaHumanSimulator(BaseHumanSimulator):
             ped.gestures = gestures
             ped.interaction_id = int(interaction_id)
             ped.interaction_type = int(interaction_type)
+            ped.group_id = self._group_ids.get(agent_id, -1)
 
             peds.pedestrians.append(ped)  # pyright: ignore[reportAttributeAccessIssue]
         return peds
@@ -1339,6 +1371,7 @@ class ArenaHumanSimulator(BaseHumanSimulator):
             self._prev_agent_states = None
             self._curr_agent_states = None
             self._agent_gestures = {}
+            self._group_ids = {}
             self._agent_types = {}
             self._arena_pedestrians = Pedestrians()
             self._arena_pedestrians.header.frame_id = "map"

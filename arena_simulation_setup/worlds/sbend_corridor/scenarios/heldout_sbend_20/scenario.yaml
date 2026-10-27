@@ -1,0 +1,107 @@
+format: arena-scenario/2
+robots:
+- start: [1.2, 6.5, 0.0]
+  phases:
+  - goto: [8.5, 11.5, 1.5708]
+    tolerance_radius: 0.8
+humans:
+- name: walk0_leader
+  model: Common/Human/arenian
+  pose: [6.0, 11.5, 0.0]
+  agent: {agent_type: ./leader_0.yaml}
+- name: walk0_follower_0
+  model: Common/Human/casual_female_african_young
+  pose: [5.2, 11.0, 0.0]
+  agent: {agent_type: ./follower.yaml}
+- name: walk0_follower_1
+  model: Common/Human/worker_male_asian_middleage
+  pose: [5.2, 12.0, 0.0]
+  agent: {agent_type: ./follower.yaml}
+- name: walk1_leader
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose: [3.4, 6.0, 0.0]
+  agent: {agent_type: ./leader_1.yaml, desired_velocity: 0.6}
+- name: walk1_follower_0
+  model: Common/Human/arenian
+  pose: [2.6, 5.7, 0.0]
+  agent: {agent_type: ./follower.yaml, desired_velocity: 0.6}
+- name: talk0_member_0
+  model: Common/Human/casual_female_african_young
+  pose: [6.6, 7.6, -1.5708]
+  agent: {agent_type: ./talker.yaml}
+- name: talk0_member_1
+  model: Common/Human/worker_male_asian_middleage
+  pose: [6.21, 6.925, 0.5236]
+  agent: {agent_type: ./talker.yaml}
+- name: talk0_member_2
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose: [6.99, 6.925, 2.618]
+  agent: {agent_type: ./talker.yaml}
+- name: talk1_member_0
+  model: Common/Human/arenian
+  pose: [1.5, 12.3, 0.0]
+  agent: {agent_type: ./talker.yaml}
+- name: talk1_member_1
+  model: Common/Human/casual_female_african_young
+  pose: [2.9, 12.3, 3.1416]
+  agent: {agent_type: ./talker.yaml}
+- name: single_0
+  model: Common/Human/worker_male_asian_middleage
+  pose: corridor_middle
+  agent: {agent_type: adult}
+  waypoint_mode: random
+  waypoints: [corridor_middle, corridor_middle, corridor_middle]
+- name: single_1
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose: corridor_north
+  agent: {agent_type: adult}
+  waypoint_mode: random
+  waypoints: [corridor_north, corridor_north, corridor_north]
+- name: single_2
+  model: Common/Human/arenian
+  pose: corridor_south
+  agent: {agent_type: adult}
+  waypoint_mode: random
+  waypoints: [corridor_south, corridor_south, corridor_south]
+- name: single_3
+  model: Common/Human/casual_female_african_young
+  pose: corridor_middle
+  agent: {agent_type: adult}
+  waypoint_mode: random
+  waypoints: [corridor_middle, corridor_middle, corridor_middle]
+- name: single_4
+  model: Common/Human/worker_male_asian_middleage
+  pose: corridor_north
+  agent: {agent_type: adult}
+  waypoint_mode: random
+  waypoints: [corridor_north, corridor_north, corridor_north]
+- name: single_5
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose: corridor_south
+  agent: {agent_type: adult}
+  waypoint_mode: random
+  waypoints: [corridor_south, corridor_south, corridor_south]
+- name: single_6
+  model: Common/Human/arenian
+  pose: corridor_middle
+  agent: {agent_type: adult}
+  waypoint_mode: random
+  waypoints: [corridor_middle, corridor_middle, corridor_middle]
+- name: single_7
+  model: Common/Human/casual_female_african_young
+  pose: corridor_north
+  agent: {agent_type: adult}
+  waypoint_mode: random
+  waypoints: [corridor_north, corridor_north, corridor_north]
+- name: single_8
+  model: Common/Human/worker_male_asian_middleage
+  pose: corridor_south
+  agent: {agent_type: adult}
+  waypoint_mode: random
+  waypoints: [corridor_south, corridor_south, corridor_south]
+- name: single_9
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose: corridor_middle
+  agent: {agent_type: adult}
+  waypoint_mode: random
+  waypoints: [corridor_middle, corridor_middle, corridor_middle]

@@ -41,3 +41,6 @@ int32 interaction_id -1
 # Kind of that interaction, meaningful only when interaction_id >= 0.
 uint8 interaction_type
 
+# Lowest id of the active group interactions it joins, -1 = none.
+int32 group_id -1
+

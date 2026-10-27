@@ -1,0 +1,80 @@
+format: arena-scenario/2
+robots:
+- start:
+  - 2.0
+  - 11.5
+  - 1.1
+  phases:
+  - goto:
+    - 6.0
+    - 24.0
+    - 1.1
+humans:
+- name: chat_talker_0
+  model: Common/Human/arenian
+  pose:
+  - 4.7
+  - 17.5
+  - 3.1416
+  agent:
+    agent_type: ./talker.yaml
+- name: chat_talker_1
+  model: Common/Human/casual_female_african_young
+  pose:
+  - 3.65
+  - 18.11
+  - 5.236
+  agent:
+    agent_type: ./talker.yaml
+- name: chat_talker_2
+  model: Common/Human/worker_male_asian_middleage
+  pose:
+  - 3.65
+  - 16.89
+  - 7.3304
+  agent:
+    agent_type: ./talker.yaml
+- name: walk_leader
+  model: Common/Human/casual_female_african_young
+  pose:
+  - 1.5
+  - 13.0
+  - 0.0
+  agent:
+    agent_type: ./leader.yaml
+- name: walk_follower_0
+  model: Common/Human/worker_male_asian_middleage
+  pose:
+  - 0.7
+  - 13.8
+  - 0.0
+  agent:
+    agent_type: ./follower.yaml
+- name: walk_follower_1
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose:
+  - 0.7
+  - 12.2
+  - 0.0
+  agent:
+    agent_type: ./follower.yaml
+- name: ward_single_0
+  model: Common/Human/worker_male_asian_middleage
+  pose: patient_ward
+  agent:
+    agent_type: adult
+  waypoint_mode: random
+  waypoints:
+  - patient_ward
+  - patient_ward
+  - patient_ward
+- name: ward_single_1
+  model: Hospital/Human/nurse_female_caucasian_young
+  pose: patient_ward
+  agent:
+    agent_type: adult
+  waypoint_mode: random
+  waypoints:
+  - patient_ward
+  - patient_ward
+  - patient_ward
